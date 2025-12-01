@@ -87,7 +87,7 @@ function SidebarDesktop() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-3 rounded-lg text-sm 
+              className={`flex items-center font-semibold gap-3 px-3 py-3 rounded-lg text-sm 
                 ${active ? "bg-indigo-100 text-primary" : "text-gray-600 hover:bg-gray-100"}
               `}
             >
@@ -133,7 +133,7 @@ function SidebarMobile() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex font-normal items-center gap-3 px-3 py-2 rounded-lg ${active ? "bg-indigo-100 text-primary" : "text-gray-600 hover:bg-gray-100"}`}
+                className={`flex font-semibold items-center gap-3 px-3 py-2 rounded-lg ${active ? "bg-indigo-100 text-primary" : "text-gray-600 hover:bg-gray-100"}`}
               >
                 <Icon className="h-5 w-5" />
                 {item.label}

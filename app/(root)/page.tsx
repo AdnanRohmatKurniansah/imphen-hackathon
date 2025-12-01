@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import { Hero } from "./_components/hero";
+import { Service } from "./_components/service";
 
 export const metadata: Metadata = {
   title: "AmbaApp | Kurahan",
@@ -7,7 +9,8 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="main">
-      <p>Hai</p>
+      <Hero />
+      <Service />
     </div>
   );
 }
