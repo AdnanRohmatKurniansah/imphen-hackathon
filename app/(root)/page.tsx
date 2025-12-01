@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="main">
-      <p>Adnan Jomok</p>
+      <p>Adnan ahdan dan semua</p>
     </div>
   );
 }
