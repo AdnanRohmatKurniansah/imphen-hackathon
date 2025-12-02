@@ -34,27 +34,27 @@ const Stats = async () => {
   return (
     <Card className='mb-8 md:mb-0'>
       <CardHeader>
-        <CardTitle className='text-lg'>Dashboard Management</CardTitle>
+        <CardTitle className='text-lg'>Manajemen Dashboard</CardTitle>
         <CardDescription>
-          Easily monitor and control all essential data and activities from one place.
+          Pantau dan kendalikan semua data dan aktivitas penting dengan mudah dari satu tempat.
         </CardDescription>
-      </CardHeader>
+      </CardHeader> 
 
       <CardContent>
         <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
 
           {features.map((item, index) => (
             <Card key={index} className={`@container/card ${item.bg} shadow-md`}>
-              <CardHeader>
-                <CardDescription className='text-xl font-semibold text-black'>{item.title}</CardDescription>
-                <CardAction>
+              <CardHeader className='px-3 md:px-6'>
+                <CardDescription className='text-[16px] md:text-xl font-semibold text-black'>{item.title}</CardDescription>
+                <CardAction className='hidden md:block'>
                   <div className={`p-2 text-white rounded-md ${item.bg}`}>
                     {item.icon}
                   </div>
                 </CardAction>
               </CardHeader>
 
-              <CardFooter className="flex-col pt-5 md:pt-10 items-start gap-1.5 text-sm">
+              <CardFooter className="flex-col px-3 py-0 md:px-6 pt-5 md:pt-10 items-start gap-1.5 text-sm">
                 <Button variant={'outline'} className='w-full font-semibold'>
                   {item.button}
                 </Button>

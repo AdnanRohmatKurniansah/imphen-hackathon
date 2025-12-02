@@ -1,4 +1,5 @@
 import React from 'react'
+import { UserProvider } from '../providers/user-provider'
 
 export default function RootLayout({
   children,
@@ -7,7 +8,9 @@ export default function RootLayout({
 }) {
   return (
     <div className="flex flex-col">
-      <main className="flex-1">{children}</main>
+      <UserProvider>
+        <main className="flex-1">{children}</main>
+      </UserProvider>
     </div>
   )
 }

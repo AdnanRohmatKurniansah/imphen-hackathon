@@ -16,7 +16,7 @@ const DashboardPage = () => {
           <Button size="sm" className="gap-1 mb-3">
             <ChartArea className="h-3.5 w-3.5" />
             <span className="sm:whitespace-nowrap">
-              Dashboard Statistics
+              Statistik Dashboard
             </span>
           </Button>
         </div>

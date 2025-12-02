@@ -56,3 +56,4 @@ export const getCurrentUser = async () => {
 
   return { user, error };
 }
+
