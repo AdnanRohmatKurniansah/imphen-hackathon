@@ -57,7 +57,10 @@ export function Profile() {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem asChild>
-          <Link href="/settings">Settings</Link>
+          <Link href="/dashboard/setup-profile">Profile UMKM</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="#">Settings</Link>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />

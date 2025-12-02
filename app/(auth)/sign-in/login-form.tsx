@@ -120,7 +120,7 @@ const LoginForm = () => {
           </div>
         </div>
       </div>
-      <div className="bg-muted relative hidden lg:block">
+      <div className="bg-muted z-10 relative hidden lg:block">
         {/* <Image src={'/images/auth-img.jpg'} fill className="object-cover" alt={'authentication image'} /> */}
       </div>
     </div>
