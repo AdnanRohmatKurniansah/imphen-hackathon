@@ -10,7 +10,6 @@ import {
 } from "@/app/components/ui/dialog"
 
 import { Button } from "@/app/components/ui/button"
-import { useRouter } from "next/navigation"
 
 interface Props {
   open: boolean
@@ -18,8 +17,6 @@ interface Props {
 }
 
 const SetupWarningModal = ({ open, onOpenChange }: Props) => {
-  const router = useRouter()
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-sm">
