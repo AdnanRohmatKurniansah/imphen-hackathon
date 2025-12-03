@@ -1,4 +1,5 @@
-import { createClientSupabase } from "@/app/utils/supabase/client";
+import { createClientSupabase } from "@/app/utils/supabase/client"
+import { getOrCreateUmkmProfile } from "./umkmProfileService"
 
 export type registerData = {
     email: string
@@ -16,17 +17,25 @@ export const registerWithEmail = async (credentails: registerData) => {
         password: credentails.password
     })
 
-    return { data, error };
+    return { data, error }
 }
 
 export const loginWithEmail = async (credentials: loginData) => {
-    const { data, error } = await createClientSupabase().auth.signInWithPassword({
-        email: credentials.email,
-        password: credentials.password,
-    });
+  const { data, error } = await createClientSupabase().auth.signInWithPassword({
+    email: credentials.email,
+    password: credentials.password,
+  })
 
-    return { data, error };
+  if (error) return { data, error }
+
+  const user = data.user
+  if (!user) return { data, error: null }
+
+  await getOrCreateUmkmProfile(user.id)
+
+  return { data, error }
 }
+
 
 export const loginWithGoogle = async () => {
   const { data, error } = await createClientSupabase().auth.signInWithOAuth({
@@ -38,15 +47,17 @@ export const loginWithGoogle = async () => {
         prompt: 'consent',
       },
     },
-  });
+  })
 
-  return { data, error };
+  if (error) return { data, error }
+
+  return { data, error }
 }
 
 export const logout = async () => {
   const { error } = await createClientSupabase().auth.signOut()
 
-  return { error };
+  return { error }
 }
 
 export const getCurrentUser = async () => {
@@ -54,6 +65,6 @@ export const getCurrentUser = async () => {
     user 
   }, error } = await createClientSupabase().auth.getUser()
 
-  return { user, error };
+  return { user, error }
 }
 

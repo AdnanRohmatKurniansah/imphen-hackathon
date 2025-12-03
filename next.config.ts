@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "avatars.githubusercontent.com", 
       },
+      {
+        protocol: "https",
+        hostname: "xnuemmtycozwajjxkhsw.supabase.co", 
+        port: "",
+        pathname: "/storage/v1/object/public/**",
+      },
     ],
   },
 };

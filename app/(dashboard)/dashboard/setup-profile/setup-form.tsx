@@ -7,7 +7,6 @@ import { toast } from "sonner"
 import { useState, useEffect } from "react"
 import { createClientSupabase } from "@/app/utils/supabase/client"
 import { setupProfileSchema } from "@/app/validations/setupProfile-validation"
-import { useUser } from "@/app/providers/user-provider"
 import z from "zod"
 
 import {
@@ -32,6 +31,8 @@ import {
 import { getCategories } from "@/app/service/categoriesService"
 import { Textarea } from "@/app/components/ui/textarea"
 import SetupWarningModal from "./setup-warning"
+import { getUmkmProfile } from "@/app/service/umkmProfileService"
+import { umkmProfile } from "@/app/types"
 
 type setupData = z.infer<typeof setupProfileSchema>
 
@@ -40,15 +41,14 @@ interface Category {
   name: string
 }
 
-const SetupForm = () => {
+const SetupForm = ({ userId }: {userId: string}) => {
   const router = useRouter()
-  const { user } = useUser()
 
   const [mustSetup, setMustSetup] = useState(false)
   const [open, setModalOpen] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [categories, setCategories] = useState<Category[]>([])
-  const [profileId, setProfileId] = useState<string | null>(null)
+  const [profile, setProfile] = useState<umkmProfile | null>(null)
 
   const {
     register,
@@ -66,6 +66,32 @@ const SetupForm = () => {
     }
   })
 
+  const loadProfile = async () => {
+    const { data: profileData, error} = await getUmkmProfile(userId)
+
+    if (profileData) {
+      setProfile(profileData)
+
+      setValue("business_name", profileData.business_name || "")
+      setValue("category_id", profileData.category_id?.toString() || "")
+      setValue("description", profileData.description || "")
+      setValue("location", profileData.location || "")
+
+       const isEmpty =
+        !profileData.business_name ||
+        !profileData.category_id ||
+        !profileData.description ||
+        !profileData.location
+      if (isEmpty) setMustSetup(true)
+    } else {
+      setMustSetup(true)
+    }
+  }
+
+  useEffect(() => {
+    loadProfile()
+  }, [userId])
+
   useEffect(() => {
     const loadCategories = async () => {
       const { data, error } = await getCategories()
@@ -76,71 +102,22 @@ const SetupForm = () => {
     loadCategories()
   }, [])
 
-  useEffect(() => {
-    if (!user) return
-
-    const loadProfile = async () => {
-      const { data } = await createClientSupabase()
-        .from("umkm_profile")
-        .select("*")
-        .eq("user_id", user.id)
-        .maybeSingle()
-
-      if (data) {
-        setProfileId(data.id)
-
-        setValue("business_name", data.business_name)
-        setValue("category_id", data.category_id.toString())
-        setValue("description", data.description)
-        setValue("location", data.location)
-      } else {
-        setMustSetup(true)
-      }
-    }
-
-    loadProfile()
-  }, [user, createClientSupabase(), setValue])
-
   const onSubmit = async (values: setupData) => {
-    if (!user) {
-      toast.error("User tidak ditemukan")
-      return
-    }
-
     try {
       setIsSubmitting(true)
-
-      if (profileId) {
-        const { error } = await createClientSupabase()
-          .from("umkm_profile")
-          .update(values)
-          .eq("id", profileId)
-
-        if (error) {
-          toast.error("Gagal update profil")
-          return
-        }
-
-        toast.success("Profil UMKM berhasil diperbarui!")
-        router.push("/dashboard")
-        return
-      }
-
       const { error } = await createClientSupabase()
         .from("umkm_profile")
-        .insert({
-          user_id: user.id,
-          ...values
-        })
+        .update(values)
+        .eq("id", profile?.id)
 
       if (error) {
-        toast.error("Gagal membuat profil")
+        toast.error("Gagal update profil")
         return
       }
 
-      toast.success("Profil UMKM berhasil dibuat!")
+      toast.success("Profil UMKM berhasil diperbarui!")
       router.push("/dashboard")
-
+      return
     } catch (err) {
       console.error(err)
       toast.error("Terjadi kesalahan")
@@ -151,7 +128,7 @@ const SetupForm = () => {
 
   return (
     <div className="flex items-center">
-      {mustSetup && !profileId && (
+      {mustSetup && (
         <SetupWarningModal open={open} onOpenChange={setModalOpen} />
       )}
 
@@ -231,10 +208,10 @@ const SetupForm = () => {
               <Button disabled={isSubmitting} type="submit" className="w-full">
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">
-                    <Spinner /> {profileId ? "Mengupdate..." : "Menyimpan..."}
+                    <Spinner /> {"Mengupdate..."}
                   </span>
                 ) : (
-                  profileId ? "Update Profil" : "Simpan Profil"
+                  "Update Profil"
                 )}
               </Button>
             </CardFooter>
