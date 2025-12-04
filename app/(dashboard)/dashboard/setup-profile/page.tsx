@@ -8,7 +8,7 @@ import { createServerSupabase } from "@/app/utils/supabase/server"
 import { redirect } from "next/navigation"
 
 export const metadata: Metadata = {
-  title: "Isi Profile UMKM | AmbaApp"
+  title: "Isi Profile UMKM | Contentify"
 }
 
 const SetupProfilePage = async () => {
@@ -16,7 +16,7 @@ const SetupProfilePage = async () => {
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect("/login")
+    redirect("/sign-in")
   }
 
   return (

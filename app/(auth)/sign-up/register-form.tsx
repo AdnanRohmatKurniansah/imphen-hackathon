@@ -57,7 +57,7 @@ const RegisterPage = () => {
 
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
-      <div className="relative flex flex-col gap-4 p-6 md:p-8">
+      <div className="relative flex flex-col gap-4 p-6 md:p-8 overflow-hidden">
         <div className="absolute -bottom-5 -left-32 w-60 h-60 bg-[#4741F5]/20 rounded-full blur-3xl"></div>
         <div className="absolute -top-10 -right-10 z-10 w-50 h-50 bg-purple-300/30 rounded-full blur-3xl"></div>
         <div className="flex gap-2 justify-start">

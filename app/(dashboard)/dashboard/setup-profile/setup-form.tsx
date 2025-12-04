@@ -32,7 +32,7 @@ import { getCategories } from "@/app/service/categoriesService"
 import { Textarea } from "@/app/components/ui/textarea"
 import SetupWarningModal from "./setup-warning"
 import { getUmkmProfile } from "@/app/service/umkmProfileService"
-import { umkmProfile } from "@/app/types"
+import { UmkmProfile } from "@/app/types"
 
 type setupData = z.infer<typeof setupProfileSchema>
 
@@ -48,7 +48,7 @@ const SetupForm = ({ userId }: {userId: string}) => {
   const [open, setModalOpen] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [categories, setCategories] = useState<Category[]>([])
-  const [profile, setProfile] = useState<umkmProfile | null>(null)
+  const [profile, setProfile] = useState<UmkmProfile | null>(null)
 
   const {
     register,

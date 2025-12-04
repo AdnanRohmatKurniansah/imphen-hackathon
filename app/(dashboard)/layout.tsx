@@ -4,13 +4,11 @@ import Link from 'next/link'
 import {
   Bed,
   Bell,
-  BookIcon,
   Home,
   Map,
-  MessageCircle,
   PanelLeft,
   Plane,
-  Settings,
+  ShoppingBag,
   Ticket,
 } from 'lucide-react'
 
@@ -32,7 +30,8 @@ import { usePathname } from 'next/navigation'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 const menu = [
-  { href: "/dashboard", label: "Home", icon: Home },
+  { href: "/dashboard", label: "Dashboard", icon: Home },
+  { href: "/dashboard/products", label: "Produk Anda", icon: ShoppingBag },
   { href: "/dashboard/categories", label: "AI Content", icon: Map },
   { href: "/dashboard/poster", label: "Poster", icon: Plane },
   { href: "/dashboard/saved", label: "Saved Content", icon: Bed },
