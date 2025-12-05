@@ -5,7 +5,7 @@ import { Work } from "./_components/work";
 import { Faq } from "./_components/faq";
 
 export const metadata: Metadata = {
-  title: "AmbaApp | Kurahan",
+  title: "NexaAI | Automasi Cerdas untuk Semua Kebutuhan Anda",
 };
 
 export default function Home() {

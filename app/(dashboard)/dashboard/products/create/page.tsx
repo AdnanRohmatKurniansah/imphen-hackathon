@@ -5,7 +5,7 @@ import Link from 'next/link'
 import CreateProductForm from './create-form'
 
 export const metadata: Metadata = {
-  title: "Create Product | Contentify"
+  title: "Tambah Produk | NexaAI"
 }
 
 const CreateProductPage = () => {

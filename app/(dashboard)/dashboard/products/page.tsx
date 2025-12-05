@@ -7,7 +7,7 @@ import { redirect } from "next/navigation"
 import Link from "next/link"
 
 export const metadata: Metadata = {
-  title: "Products Management | Contentify"
+  title: "Manajemen Produk | NexaAI"
 }
 
 const ProductPage = async () => {
