@@ -5,7 +5,7 @@ import Link from 'next/link'
 import EditProductForm from './edit-form'
 
 export const metadata: Metadata = {
-  title: "Edit Product | Contentify"
+  title: "Edit Produk | NexaAI"
 }
 
 interface Params {

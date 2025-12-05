@@ -5,7 +5,7 @@ import { Button } from '@/app/components/ui/button';
 import { ChartArea } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: "Dashboard Page | Contentify"
+  title: "Dashboard Page | NexaAI"
 };  
 
 const DashboardPage = () => {

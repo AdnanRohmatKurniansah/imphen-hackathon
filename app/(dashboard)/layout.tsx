@@ -9,6 +9,7 @@ import {
   PanelLeft,
   Plane,
   ShoppingBag,
+  StarsIcon,
   Ticket,
 } from 'lucide-react'
 
@@ -32,7 +33,7 @@ import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 const menu = [
   { href: "/dashboard", label: "Dashboard", icon: Home },
   { href: "/dashboard/products", label: "Produk Anda", icon: ShoppingBag },
-  { href: "/dashboard/categories", label: "AI Content", icon: Map },
+  { href: "/dashboard/konten-ai", label: "Konten AI", icon: StarsIcon },
   { href: "/dashboard/poster", label: "Poster", icon: Plane },
   { href: "/dashboard/saved", label: "Saved Content", icon: Bed },
   { href: "/dashboard/analytics", label: "Analytics", icon: Ticket },
@@ -43,9 +44,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <TooltipProv>
       <UserProvider>
         <main className="flex min-h-screen w-full bg-muted/40">
-          
           <SidebarDesktop />
-
           <div className="flex flex-col flex-1 sm:gap-4 sm:py-4 sm:pl-0">
 
             <header className="sticky top-0 z-30 flex h-14 w-full items-center gap-4 bg-background px-4 sm:px-6">
