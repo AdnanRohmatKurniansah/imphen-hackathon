@@ -24,6 +24,8 @@ import Image from "next/image";
 import { UmkmProduct, UmkmProfile } from "@/app/types";
 import { getUmkmProfile } from "@/app/service/umkmProfileService";
 import { getProductById, getProducts } from "@/app/service/productService";
+import { toast } from "sonner";
+import { addPosterGeneration } from "@/app/service/posterService";
 
 const themes = [
   { label: "Light", value: "light" },
@@ -54,11 +56,6 @@ const GeneratePoster = ({ userId }: { userId: string }) => {
   const [profile, setProfile] = useState<UmkmProfile>();
   const [products, setProducts] = useState<UmkmProduct[]>([]);
 
-  const [editMode, setEditMode] = useState<
-    "none" | "headline" | "cta" | "color"
-  >("none");
-  const [editValue, setEditValue] = useState("");
-
   useEffect(() => {
     const load = async () => {
       const { data } = await getUmkmProfile(userId);
@@ -77,69 +74,69 @@ const GeneratePoster = ({ userId }: { userId: string }) => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = async (body: any) => {
-    if (!profile) return alert("Profil UMKM tidak ditemukan");
+    try {
+      if (!profile) {
+        alert("Profil UMKM tidak ditemukan");
+        return;
+      }
 
-    const dataProduct = await getProductById(body.product_id);
+      const dataProduct = await getProductById(body.product_id);
 
-    setLoading(true);
+      setLoading(true);
 
-    const res = await fetch(
-      "https://n8n.fadlandev.my.id/webhook/0e8c0220-535b-48c7-a49e-9514043e067e?mode=image",
-      {
+      const url = process.env.NEXT_PUBLIC_POSTER_N8N_URL;
+      if (!url) {
+        console.error("NEXT_PUBLIC_POSTER_N8N_URL is missing!");
+        alert("URL server untuk generate poster belum diset.");
+        setLoading(false);
+        return;
+      }
+
+      const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...body,
           ...dataProduct,
         }),
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        toast.error(result.error || "Gagal memproses data.");
+        return;
       }
-    );
 
-    const result = await res.json();
-    setGeneratedImage(result.data || null);
-    setLoading(false);
+      const imageBase64 = result.data;
+      setGeneratedImage(imageBase64);
+
+      await addPosterGeneration({
+        profile_id: profile.id,
+        product_id: body.product_id,
+        headline: body.headline,
+        subheadline: body.subHeadline,
+        cta: body.cta,
+        theme: body.theme,
+        image_url: imageBase64,
+      });
+
+      toast.success("Berhasil menghasilkan konten!");
+    } catch (error) {
+      console.error("Error saat generate poster:", error);
+      toast.error("Terjadi kesalahan. Silakan coba lagi.");
+    } finally {
+      setLoading(false);
+    }
   };
-
-  // const applyEdit = async () => {
-  //   if (!generatedImage) return;
-  //   setLoading(true);
-
-  //   console.log(
-  //     JSON.stringify({
-  //       image: generatedImage,
-  //       mode: editMode,
-  //       value: editValue,
-  //     })
-  //   );
-
-  //   const res = await fetch(
-  //     "https://n8n.fadlandev.my.id/webhook-test/0e8c0220-535b-48c7-a49e-9514043e067e?mode=edit-image",
-  //     {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         image: generatedImage,
-  //         mode: editMode,
-  //         value: editValue,
-  //       }),
-  //     }
-  //   );
-
-  //   const result = await res.json();
-  //   setGeneratedImage(result.data);
-  //   setLoading(false);
-  //   setEditMode("none");
-  // };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {/* FORM */}
       <Card>
         <CardHeader>
           <CardTitle>Generate Poster UMKM</CardTitle>
           <CardDescription>Masukkan detail konten poster</CardDescription>
         </CardHeader>
-
         <CardContent className="space-y-5">
           <Controller
             name="product_id"
@@ -217,8 +214,6 @@ const GeneratePoster = ({ userId }: { userId: string }) => {
           </Button>
         </CardContent>
       </Card>
-
-      {/* RESULT */}
       <Card className="flex items-center justify-center min-h-[500px]">
         <CardContent>
           {!generatedImage && (
@@ -226,9 +221,8 @@ const GeneratePoster = ({ userId }: { userId: string }) => {
               Poster akan muncul di sini setelah digenerate.
             </p>
           )}
-
           {generatedImage && (
-            <div className="space-y-4">
+            <div className="space-y-4 text-center">
               <Image
                 src={`data:image/png;base64,${generatedImage}`}
                 alt="Poster"
@@ -236,70 +230,12 @@ const GeneratePoster = ({ userId }: { userId: string }) => {
                 height={600}
                 className="rounded shadow mx-auto"
               />
-
-              {/* EDIT BUTTONS */}
-              {/* <div className="flex gap-3 justify-center">
-                <Button
-                  onClick={() => {
-                    setEditMode("headline");
-                    setEditValue(headline);
-                  }}
-                  variant="outline"
-                >
-                  Edit Headline
-                </Button>
-                <Button
-                  onClick={() => {
-                    setEditMode("cta");
-                    setEditValue(cta);
-                  }}
-                  variant="outline"
-                >
-                  Edit CTA
-                </Button>
-                <Button
-                  onClick={() => {
-                    setEditMode("color");
-                    setEditValue(theme);
-                  }}
-                  variant="outline"
-                >
-                  Edit Tema
-                </Button>
-              </div> */}
-
-              {/* EDIT FORM */}
-              {/* {editMode !== "none" && (
-                <div className="border p-4 rounded space-y-3">
-                  <Label>Edit {editMode}</Label>
-
-                  {editMode === "color" ? (
-                    <select
-                      className="w-full border px-3 py-2 rounded"
-                      value={editValue}
-                      onChange={(e) => setEditValue(e.target.value)}
-                    >
-                      {themes.map((t) => (
-                        <option key={t.value} value={t.value}>
-                          {t.label}
-                        </option>
-                      ))}
-                    </select>
-                  ) : (
-                    <Input
-                      value={editValue}
-                      onChange={(e) => setEditValue(e.target.value)}
-                    />
-                  )}
-
-                  <Button
-                    onClick={applyEdit}
-                    className="w-full"
-                  >
-                    {loading ? "Memproses..." : "Terapkan Edit"}
-                  </Button>
-                </div>
-              )} */}
+              <a
+                href={`data:image/png;base64,${generatedImage}`}
+                download={`poster-${new Date().getTime()}.png`}
+              >
+                <Button className="mt-2">Download Poster</Button>
+              </a>
             </div>
           )}
         </CardContent>

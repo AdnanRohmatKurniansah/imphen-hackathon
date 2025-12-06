@@ -74,8 +74,15 @@ const GenerateForm = ({ userId }: { userId: string }) => {
 
       setCurrentType(data.generate_type);
 
-      const res = await fetch(
-        "https://n8n.fadlandev.my.id/webhook/0e8c0220-535b-48c7-a49e-9514043e067e?mode=tag",
+      const url = process.env.NEXT_PUBLIC_CHAT_N8N_URL;
+
+      if (!url) {
+        console.error("NEXT_PUBLIC_POSTER_N8N_URL is missing!");
+        alert("URL server untuk generate poster belum diset.");
+        return;
+      }
+
+      const res = await fetch(url,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
