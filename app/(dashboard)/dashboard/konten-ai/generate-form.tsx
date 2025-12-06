@@ -22,12 +22,19 @@ import {
   SelectItem,
   SelectGroup,
 } from "@/app/components/ui/select";
+<<<<<<< HEAD
 import { Switch } from "@/app/components/ui/switch";
+=======
+>>>>>>> 11b291b (feat : genenerate text)
 
 import { getProductById, getProducts } from "@/app/service/productService";
 import { getUmkmProfile } from "@/app/service/umkmProfileService";
 import { toast } from "sonner";
 import { UmkmProduct, UmkmProfile } from "@/app/types";
+<<<<<<< HEAD
+=======
+import { Switch } from "@/app/components/ui/switch";
+>>>>>>> 11b291b (feat : genenerate text)
 
 const GenerateForm = ({ userId }: { userId: string }) => {
   const { register, handleSubmit, control } = useForm();
@@ -237,10 +244,20 @@ const GenerateForm = ({ userId }: { userId: string }) => {
                 control={control}
                 defaultValue={true}
                 render={({ field }) => (
+<<<<<<< HEAD
                   <Switch
                     checked={field.value}
                     onCheckedChange={field.onChange}
                   />
+=======
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id="airplane-mode"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </div>
+>>>>>>> 11b291b (feat : genenerate text)
                 )}
               />
             </div>
