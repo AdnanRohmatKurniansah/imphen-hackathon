@@ -70,12 +70,13 @@ const LoginForm = () => {
               <ArrowLeft /> Kembali ke Home</Button>
           </Link>
         </div>
+        
         <div className="z-10  flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
             <form onSubmit={handleSubmit(loginHandle)} className="flex flex-col">
               <div className="flex justify-center mb-3">
                 <Link href="/" className="flex items-center font-medium">
-                  <Image src={'/images/app-logo.png'} width={0} height={0} sizes="100vw" className="h-16 w-auto" alt={'logo rebox'} />
+                  <Image src={'/images/nexa-ai.png'} width={0} height={0} sizes="100vw" className="h-12 w-auto" alt={'logo rebox'} />
                 </Link>
               </div>
               <div className="flex flex-col items-center gap-2 text-center mb-5">
