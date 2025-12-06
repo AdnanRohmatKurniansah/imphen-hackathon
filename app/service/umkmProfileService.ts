@@ -1,14 +1,15 @@
-import { createClientSupabase } from "@/app/utils/supabase/client"
+import { createClientSupabase } from "@/app/utils/supabase/client";
 
 export const getUmkmProfile = async (userId: string) => {
   const { data, error } = await createClientSupabase()
     .from("umkm_profile")
     .select("*")
     .eq("user_id", userId)
-    .single()
+    .single();
+  console.log(data);
 
-  return { data, error }
-}
+  return { data, error };
+};
 
 export const createUmkmProfile = async (userId: string) => {
   const { data, error } = await createClientSupabase()
@@ -19,22 +20,22 @@ export const createUmkmProfile = async (userId: string) => {
       category_id: null,
       description: "",
       location: "",
-      logo_url: null
+      logo_url: null,
     })
     .select()
-    .single()
+    .single();
 
-  return { data, error }
-}
+  return { data, error };
+};
 
 export const getOrCreateUmkmProfile = async (userId: string) => {
-  const { data: profile } = await getUmkmProfile(userId)
+  const { data: profile } = await getUmkmProfile(userId);
 
   if (profile) {
-    return profile
+    return profile;
   }
 
-  const { data: newProfile } = await createUmkmProfile(userId)
+  const { data: newProfile } = await createUmkmProfile(userId);
 
-  return newProfile
-}
+  return newProfile;
+};
