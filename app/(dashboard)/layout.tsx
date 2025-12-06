@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import {
-  Bed,
   Bell,
   Home,
-  Map,
+  Images,
   PanelLeft,
-  Plane,
+  SaveIcon,
   ShoppingBag,
   StarsIcon,
   Ticket,
@@ -41,9 +40,12 @@ const menu = [
   { href: "/dashboard", label: "Dashboard", icon: Home },
   { href: "/dashboard/products", label: "Produk Anda", icon: ShoppingBag },
   { href: "/dashboard/konten-ai", label: "Konten AI", icon: StarsIcon },
-  { href: "/dashboard/poster-ai", label: "Poster", icon: Plane },
-  { href: "/dashboard/saved", label: "Saved Content", icon: Bed },
-  { href: "/dashboard/analytics", label: "Analytics", icon: Ticket },
+  { href: "/dashboard/poster", label: "Poster", icon: Images },
+  {
+    href: "/dashboard/aktivitas-tersimpan",
+    label: "Aktivitas Tersimpan",
+    icon: SaveIcon,
+  },
 ];
 
 export default function DashboardLayout({
@@ -68,7 +70,6 @@ export default function DashboardLayout({
               </Button>
               <Profile />
             </header>
-
             <main className="grid flex-1 items-start gap-2 border-t bg-muted/40 p-4 sm:px-6 sm:py-0 md:gap-4">
               {children}
             </main>
@@ -85,7 +86,7 @@ function SidebarDesktop() {
   return (
     <aside className="hidden md:flex w-56 flex-col border-r bg-white px-4 py-6">
       <div className="flex items-center gap-2 mb-8">
-        <Image src="/images/app-logo.png" width={150} height={32} alt="Logo" />
+        <Image src="/images/nexa-ai.png" width={130} height={28} alt="Logo" />
       </div>
 
       <nav className="flex flex-col gap-1">
@@ -134,12 +135,7 @@ function SidebarMobile() {
           </VisuallyHidden>
         </SheetHeader>
         <div className="flex items-center gap-2 mt-5">
-          <Image
-            src="/images/app-logo.png"
-            width={150}
-            height={32}
-            alt="Logo"
-          />
+          <Image src="/images/nexa-ai.png" width={130} height={28} alt="Logo" />
         </div>
 
         <nav className="flex flex-col gap-2 text-base font-medium">

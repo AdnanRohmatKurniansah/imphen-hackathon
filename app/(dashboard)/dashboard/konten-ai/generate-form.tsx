@@ -75,7 +75,7 @@ const GenerateForm = ({ userId }: { userId: string }) => {
       setCurrentType(data.generate_type);
 
       const res = await fetch(
-        "https://n8n.fadlandev.my.id/webhook-test/0e8c0220-535b-48c7-a49e-9514043e067e",
+        "https://n8n.fadlandev.my.id/webhook/0e8c0220-535b-48c7-a49e-9514043e067e?mode=tag",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -270,7 +270,7 @@ const GenerateForm = ({ userId }: { userId: string }) => {
               <h3 className="font-semibold">Hasil Generate</h3>
               <Button variant="outline" size="sm" onClick={copyResult}>
                 Copy
-              </Button> 
+              </Button>
             </div>
             <pre className="whitespace-pre-wrap text-sm leading-relaxed">
               {result}
