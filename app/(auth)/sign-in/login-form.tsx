@@ -70,6 +70,7 @@ const LoginForm = () => {
               <ArrowLeft /> Kembali ke Home</Button>
           </Link>
         </div>
+        
         <div className="z-10  flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
             <form onSubmit={handleSubmit(loginHandle)} className="flex flex-col">
