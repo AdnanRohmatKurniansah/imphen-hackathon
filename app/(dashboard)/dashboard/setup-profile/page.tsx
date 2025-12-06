@@ -1,22 +1,30 @@
-import { Metadata } from "next"
-import SetupForm from "./setup-form"
-import { ChartArea } from "lucide-react"
-import { Button } from "@/app/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card"
-import UploadLogo from "./upload-logo"
-import { createServerSupabase } from "@/app/utils/supabase/server"
-import { redirect } from "next/navigation"
+import { Metadata } from "next";
+import SetupForm from "./setup-form";
+import { ChartArea } from "lucide-react";
+import { Button } from "@/app/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/app/components/ui/card";
+import UploadLogo from "./upload-logo";
+import { createServerSupabase } from "@/app/utils/supabase/server";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Isi Profile UMKM | NexaAI"
-}
+  title: "Isi Profile UMKM | NexaAI",
+};
 
 const SetupProfilePage = async () => {
-  const supabase = await createServerSupabase()
-  const { data: { user } } = await supabase.auth.getUser()
+  const supabase = await createServerSupabase();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/sign-in")
+    redirect("/sign-in");
   }
 
   return (
@@ -34,7 +42,8 @@ const SetupProfilePage = async () => {
         <CardHeader>
           <CardTitle className="text-lg">Lengkapi Profil UMKM Anda</CardTitle>
           <CardDescription>
-            Masukkan informasi usaha Anda agar dapat memaksimalkan penggunaan dashboard dan layanan kami.
+            Masukkan informasi usaha Anda agar dapat memaksimalkan penggunaan
+            dashboard dan layanan kami.
           </CardDescription>
         </CardHeader>
 
@@ -46,7 +55,7 @@ const SetupProfilePage = async () => {
         </CardContent>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default SetupProfilePage
+export default SetupProfilePage;

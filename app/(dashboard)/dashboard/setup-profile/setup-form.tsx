@@ -1,23 +1,19 @@
-"use client"
+"use client";
 
-import { useForm, Controller } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useRouter } from "next/navigation"
-import { toast } from "sonner"
-import { useState, useEffect } from "react"
-import { createClientSupabase } from "@/app/utils/supabase/client"
-import { setupProfileSchema } from "@/app/validations/setupProfile-validation"
-import z from "zod"
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { useState, useEffect } from "react";
+import { createClientSupabase } from "@/app/utils/supabase/client";
+import { setupProfileSchema } from "@/app/validations/setupProfile-validation";
+import z from "zod";
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-} from "@/app/components/ui/card"
+import { Card, CardContent, CardFooter } from "@/app/components/ui/card";
 
-import { Input } from "@/app/components/ui/input"
-import { Button } from "@/app/components/ui/button"
-import Spinner from "@/app/components/ui/spinner"
+import { Input } from "@/app/components/ui/input";
+import { Button } from "@/app/components/ui/button";
+import Spinner from "@/app/components/ui/spinner";
 
 import {
   Select,
@@ -26,105 +22,121 @@ import {
   SelectContent,
   SelectItem,
   SelectGroup,
-} from "@/app/components/ui/select"
+} from "@/app/components/ui/select";
 
-import { getCategories } from "@/app/service/categoriesService"
-import { Textarea } from "@/app/components/ui/textarea"
-import SetupWarningModal from "./setup-warning"
-import { getUmkmProfile } from "@/app/service/umkmProfileService"
-import { UmkmProfile } from "@/app/types"
+import { getCategories } from "@/app/service/categoriesService";
+import { Textarea } from "@/app/components/ui/textarea";
+import SetupWarningModal from "./setup-warning";
+import { getUmkmProfile } from "@/app/service/umkmProfileService";
+import { UmkmProfile } from "@/app/types";
 
-type setupData = z.infer<typeof setupProfileSchema>
+type setupData = z.infer<typeof setupProfileSchema>;
 
 interface Category {
-  id: string
-  name: string
+  id: string;
+  name: string;
 }
 
-const SetupForm = ({ userId }: {userId: string}) => {
-  const router = useRouter()
+const SetupForm = ({ userId }: { userId: string }) => {
+  const router = useRouter();
 
-  const [mustSetup, setMustSetup] = useState(false)
-  const [open, setModalOpen] = useState(true)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [categories, setCategories] = useState<Category[]>([])
-  const [profile, setProfile] = useState<UmkmProfile | null>(null)
+  const [mustSetup, setMustSetup] = useState(false);
+  const [open, setModalOpen] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [profile, setProfile] = useState<UmkmProfile | null>(null);
 
   const {
     register,
     control,
     handleSubmit,
     setValue,
-    formState: { errors }
+    formState: { errors },
   } = useForm<setupData>({
     resolver: zodResolver(setupProfileSchema),
     defaultValues: {
       business_name: "",
       category_id: "",
       description: "",
-      location: ""
-    }
-  })
+      location: "",
+    },
+  });
 
   const loadProfile = async () => {
-    const { data: profileData, error} = await getUmkmProfile(userId)
+    const { data: profileData, error } = await getUmkmProfile(userId);
 
     if (profileData) {
-      setProfile(profileData)
+      setProfile(profileData);
 
-      setValue("business_name", profileData.business_name || "")
-      setValue("category_id", profileData.category_id?.toString() || "")
-      setValue("description", profileData.description || "")
-      setValue("location", profileData.location || "")
+      setValue("business_name", profileData.business_name || "");
+      setValue("category_id", profileData.category_id?.toString() || "");
+      setValue("description", profileData.description || "");
+      setValue("location", profileData.location || "");
 
-       const isEmpty =
+      const isEmpty =
         !profileData.business_name ||
         !profileData.category_id ||
         !profileData.description ||
-        !profileData.location
-      if (isEmpty) setMustSetup(true)
+        !profileData.location;
+      if (isEmpty) setMustSetup(true);
     } else {
-      setMustSetup(true)
+      setMustSetup(true);
     }
-  }
+  };
 
   useEffect(() => {
-    loadProfile()
-  }, [userId])
+    loadProfile();
+  }, [userId]);
 
   useEffect(() => {
     const loadCategories = async () => {
-      const { data, error } = await getCategories()
-      if (error) toast.error("Gagal mengambil kategori")
-      else setCategories(data as Category[])
-    }
+      const { data, error } = await getCategories();
+      if (error) toast.error("Gagal mengambil kategori");
+      else setCategories(data as Category[]);
+    };
 
-    loadCategories()
-  }, [])
+    loadCategories();
+  }, []);
 
   const onSubmit = async (values: setupData) => {
     try {
-      setIsSubmitting(true)
-      const { error } = await createClientSupabase()
-        .from("umkm_profile")
-        .update(values)
-        .eq("id", profile?.id)
+      setIsSubmitting(true);
+      let error;
 
-      if (error) {
-        toast.error("Gagal update profil")
-        return
+      if (profile) {
+        const { error: updateError } = await createClientSupabase()
+          .from("umkm_profile")
+          .update(values)
+          .eq("id", profile?.id);
+
+        error = updateError;
+      } else {
+        const { error: insertError } = await createClientSupabase()
+          .from("umkm_profile")
+          .insert([{ ...values, user_id: userId }]);
+
+        error = insertError;
       }
 
-      toast.success("Profil UMKM berhasil diperbarui!")
-      router.push("/dashboard")
-      return
+      if (error) {
+        toast.error("Gagal memperbarui profil");
+        setIsSubmitting(false);
+        return;
+      }
+
+      setIsSubmitting(false);
+      toast.success(
+        `Profil UMKM berhasil ${profile ? "diperbarui" : "ditambahkan"}!`
+      );
+      router.push("/dashboard");
+      return;
     } catch (err) {
-      console.error(err)
-      toast.error("Terjadi kesalahan")
+      console.error(err);
+      toast.error("Terjadi kesalahan");
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <div className="flex items-center">
@@ -136,7 +148,9 @@ const SetupForm = ({ userId }: {userId: string}) => {
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
             <div>
-              <label className="block mb-1 font-medium text-sm">Nama Usaha</label>
+              <label className="block mb-1 font-medium text-sm">
+                Nama Usaha
+              </label>
               <Input {...register("business_name")} placeholder="Nama usaha" />
               {errors.business_name && (
                 <p className="text-red-500 text-sm mt-1">
@@ -180,7 +194,9 @@ const SetupForm = ({ userId }: {userId: string}) => {
             </div>
 
             <div>
-              <label className="block mb-1 font-medium text-sm">Deskripsi</label>
+              <label className="block mb-1 font-medium text-sm">
+                Deskripsi
+              </label>
               <Textarea
                 {...register("description")}
                 placeholder="Deskripsi singkat usaha"
@@ -196,7 +212,10 @@ const SetupForm = ({ userId }: {userId: string}) => {
 
             <div>
               <label className="block mb-1 font-medium text-sm">Lokasi</label>
-              <Input {...register("location")} placeholder="Yogyakarta, Indonesia" />
+              <Input
+                {...register("location")}
+                placeholder="Yogyakarta, Indonesia"
+              />
               {errors.location && (
                 <p className="text-red-500 text-sm mt-1">
                   {errors.location.message}
@@ -219,7 +238,7 @@ const SetupForm = ({ userId }: {userId: string}) => {
         </CardContent>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default SetupForm
+export default SetupForm;
