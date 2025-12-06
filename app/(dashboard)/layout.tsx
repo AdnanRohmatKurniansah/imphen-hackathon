@@ -68,7 +68,7 @@ function SidebarDesktop() {
   return (
     <aside className="hidden md:flex w-56 flex-col border-r bg-white px-4 py-6">
       <div className="flex items-center gap-2 mb-8">
-        <Image src="/images/nexa-ai.png" width={130} height={28} alt="Logo" />
+        <Image src="/images/app-logo.png" width={130} height={28} alt="Logo" />
       </div>
 
       <nav className="flex flex-col gap-1">
@@ -115,7 +115,7 @@ function SidebarMobile() {
           </VisuallyHidden> 
         </SheetHeader>
         <div className="flex items-center gap-2 mt-5">
-          <Image src="/images/nexa-ai.png" width={130} height={28} alt="Logo" />
+          <Image src="/images/app-logo.png" width={130} height={28} alt="Logo" />
         </div>
 
         <nav className="flex flex-col gap-2 text-base font-medium">

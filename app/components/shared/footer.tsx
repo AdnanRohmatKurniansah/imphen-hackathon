@@ -42,11 +42,11 @@ export function Footer() {
             <div className="col-span-2 mb-8 lg:mb-0">
               <Link href="/" className="shrink-0 flex items-center gap-2">
                 <Image
-                  src="/images/nexa-ai.png"
+                  src="/images/app-logo.png"
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="h-14 w-auto"
+                  className="h-11 w-auto"
                   alt="logo app"
                 />
               </Link>
