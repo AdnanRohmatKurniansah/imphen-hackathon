@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/app/components/ui/card'
 import { Button } from '@/app/components/ui/button'
 import { PencilLine, MessageCircle, Image as ImageIcon } from 'lucide-react'
+import Link from 'next/link';
 
 const features = [
   {
@@ -9,25 +10,22 @@ const features = [
     button: "Buat Caption",
     icon: <PencilLine />,
     bg: "bg-primary",
+    link: "/dashboard/konten-ai"
   },
   {
     title: "CopyWriting WA",
     button: "Buat Copy WA",
     icon: <MessageCircle />,
     bg: "bg-[#1FA376]",
+    link: "/dashboard/poster"
   },
   {
     title: "Generate Poster",
     button: "Buat Poster",
     icon: <ImageIcon />,
     bg: "bg-[#E6A442]",
-  },
-  {
-    title: "Content Calendar",
-    button: "Lihat Kalendar",
-    icon: <ImageIcon />,
-    bg: "bg-[#4184DE]",
-  },
+    link: "/dashboard/poster"
+  }
 ];
 
 const Stats = async () => {
@@ -41,7 +39,7 @@ const Stats = async () => {
       </CardHeader> 
 
       <CardContent>
-        <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
+        <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
 
           {features.map((item, index) => (
             <Card key={index} className={`@container/card ${item.bg} shadow-md`}>
@@ -55,9 +53,11 @@ const Stats = async () => {
               </CardHeader>
 
               <CardFooter className="flex-col px-3 py-0 md:px-6 pt-5 md:pt-10 items-start gap-1.5 text-sm">
-                <Button variant={'outline'} className='w-full font-semibold'>
-                  {item.button}
-                </Button>
+                <Link href={item.link}>
+                  <Button variant={'outline'} className='w-full font-semibold'>
+                    {item.button}
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
           ))}

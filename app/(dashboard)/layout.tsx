@@ -42,8 +42,8 @@ const menu = [
   { href: "/dashboard/konten-ai", label: "Konten AI", icon: StarsIcon },
   { href: "/dashboard/poster", label: "Poster", icon: Images },
   {
-    href: "/dashboard/aktivitas-tersimpan",
-    label: "Aktivitas Tersimpan",
+    href: "/dashboard/histori-poster",
+    label: "Histori Poster",
     icon: SaveIcon,
   },
 ];
