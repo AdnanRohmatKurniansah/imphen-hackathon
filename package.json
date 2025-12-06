@@ -17,10 +17,6 @@
     "@radix-ui/react-navigation-menu": "^1.2.14",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.4",
-<<<<<<< HEAD
-=======
-    "@radix-ui/react-switch": "^1.2.6",
->>>>>>> 11b291b (feat : genenerate text)
     "@radix-ui/react-tooltip": "^1.2.8",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.86.0",
@@ -38,11 +34,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
-<<<<<<< HEAD
     "@types/react": "^19",
-=======
-    "@types/react": "^19.2.7",
->>>>>>> 11b291b (feat : genenerate text)
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.0.4",
