@@ -67,11 +67,11 @@ const Navbar = ({
         <nav className="hidden lg:flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-2 shrink-0 hover:no-underline">
             <Image
-              src="/images/app-logo.png"
+              src="/images/nexa-ai.png"
               width={0}
               height={0}
               sizes="100vw"
-              className="h-12 w-auto"
+              className="h-11 w-auto"
               alt="App Logo"
             />
           </Link>
@@ -104,7 +104,7 @@ const Navbar = ({
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 hover:no-underline">
               <Image
-                src="/images/app-logo.png"
+                src="/images/nexa-ai.png"
                 width={0}
                 height={0}
                 sizes="100vw"
@@ -125,7 +125,7 @@ const Navbar = ({
                   <SheetTitle>
                     <Link href="/" className="flex items-center gap-2 hover:no-underline">
                       <Image
-                        src="/images/app-logo.png"
+                        src="/images/nexa-ai.png"
                         width={0}
                         height={0}
                         sizes="100vw"

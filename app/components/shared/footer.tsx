@@ -42,7 +42,7 @@ export function Footer() {
             <div className="col-span-2 mb-8 lg:mb-0">
               <Link href="/" className="shrink-0 flex items-center gap-2">
                 <Image
-                  src="/images/app-logo.png"
+                  src="/images/nexa-ai.png"
                   width={0}
                   height={0}
                   sizes="100vw"
