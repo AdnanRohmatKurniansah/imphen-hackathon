@@ -27,19 +27,25 @@ const RegisterPage = () => {
   const router = useRouter()
 
   const registerHandle = async (formData: validateRegister) => {
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
-    const { data, error } = await registerWithEmail(formData)
+    const cleanData = {
+      email: formData.email.trim(),
+      password: formData.password
+    };
+
+    const { data, error } = await registerWithEmail(cleanData);
 
     if (error) {
-      toast.error('Registrasi Gagal')
+      toast.error(error.message);
     } else {
-      toast.success('Registrasi Berhasil')
-      router.push('/sign-in')
+      toast.success("Registrasi Berhasil");
+      router.push("/sign-in");
     }
 
-    setIsSubmitting(false)
-  }
+    setIsSubmitting(false);
+  };
+
 
   const googleHandle = async () => {
     try {
