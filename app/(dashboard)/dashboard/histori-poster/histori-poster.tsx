@@ -141,8 +141,8 @@ const HistoryPoster = ({ userId }: Props) => {
                   {new Date(p.created_at).toLocaleDateString()}
                 </p>
                 <div className="flex gap-2 mt-4">
-                  <Link href={`/dashboard/poster/edit/${p.id}`} className="flex-1">
-                    <Button size="sm" className="w-full">Edit</Button>
+                  <Link href={`/dashboard/histori-poster/detail/${p.id}`}>
+                    <Button className="flex-1" size="sm">Detail Poster</Button>
                   </Link>
                   <Button
                     size="sm"

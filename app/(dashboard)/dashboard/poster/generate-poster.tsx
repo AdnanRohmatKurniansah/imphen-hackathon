@@ -214,7 +214,7 @@ const GeneratePoster = ({ userId }: { userId: string }) => {
           </Button>
         </CardContent>
       </Card>
-      <Card className="flex items-center justify-center min-h-[500px]">
+      <Card className="flex items-center justify-center min-h-[300px] md:min-h-[500px]">
         <CardContent>
           {!generatedImage && (
             <p className="text-gray-500">
