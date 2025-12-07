@@ -2,6 +2,7 @@ import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
 import { ArrowRight, MessageCircle, Image as ImageIcon, Type } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export function Hero() {
   return (
@@ -50,12 +51,16 @@ export function Hero() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size={"lg"} className="rounded-full">
-                Coba Sekarang
-              </Button>
-              <Button size={"lg"} variant={"outline"} className="rounded-full shadow-sm">
-                Lihat Fitur <ArrowRight />
-              </Button>
+              <Link href={'/sign-in'}>
+                <Button size={"lg"} className="rounded-full">
+                  Coba Sekarang
+                </Button>
+              </Link>
+              <Link href={'#fitur'}>
+                <Button size={"lg"} variant={"outline"} className="rounded-full shadow-sm">
+                  Lihat Fitur <ArrowRight />
+                </Button>
+              </Link>
             </div>
           </div>
 

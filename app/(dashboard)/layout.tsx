@@ -48,15 +48,11 @@ const menu = [
   },
 ];
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <TooltipProv>
       <UserProvider>
-        <main className="flex min-h-screen w-full bg-muted/40">
+        <main className="flex min-h-screen w-full bg-muted/40 md:pl-56">
           <SidebarDesktop />
           <div className="flex flex-col flex-1 sm:gap-4 sm:py-4 sm:pl-0">
             <header className="sticky top-0 z-30 flex h-14 w-full items-center gap-4 bg-background px-4 sm:px-6">
@@ -84,7 +80,7 @@ function SidebarDesktop() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden md:flex w-56 flex-col border-r bg-white px-4 py-6">
+    <aside className="hidden md:flex w-56 flex-col border-r bg-white px-4 py-6 fixed inset-y-0 left-0 z-40">
       <div className="flex items-center gap-2 mb-8">
         <Image src="/images/app-logo.png" width={130} height={28} alt="Logo" />
       </div>

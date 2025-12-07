@@ -125,11 +125,11 @@ const Navbar = ({
                   <SheetTitle>
                     <Link href="/" className="flex items-center gap-2 hover:no-underline">
                       <Image
-                        src="/images/nexa-ai.png"
+                        src="/images/app-logo.png"
                         width={0}
                         height={0}
                         sizes="100vw"
-                        className="max-h-12 w-auto"
+                        className="max-h-10 w-auto"
                         alt="App Logo"
                       />
                     </Link>

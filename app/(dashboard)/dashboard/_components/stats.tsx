@@ -23,7 +23,7 @@ const features = [
     title: "Generate Poster",
     button: "Buat Poster",
     icon: <ImageIcon />,
-    bg: "bg-[#E6A442]",
+    bg: "bg-[#E6A442] col-span-2 md:col-span-1",
     link: "/dashboard/poster"
   }
 ];

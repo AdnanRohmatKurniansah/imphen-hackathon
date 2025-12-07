@@ -73,7 +73,7 @@ const HistoriPosterDetail = async ({ params }: Params) => {
                             </Button>
                         </a>
                         <Link href="/dashboard/histori-poster" className="w-full md:w-auto">
-                            <Button className="w-full bg-gray-600 md:w-auto">
+                            <Button className="w-full bg-gray-600 hover:bg-gray-500 md:w-auto">
                             Kembali
                             </Button>
                         </Link>
