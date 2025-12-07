@@ -10,6 +10,12 @@ NexaAI adalah platform AI yang membantu pelaku UMKM membuat konten promosi secar
 
 ---
 
+## 🎥 Demo Aplikasi
+
+👉 https://drive.google.com/file/d/1bWjAvgL3G3t40LORk-wjHH-TmtuUPmUG/view?usp=sharing
+
+---
+
 ## 📚 Daftar Isi
 - [✨ Fitur Utama](#-fitur-utama)
 - [🛠 Tech Stack](#-tech-stack)
