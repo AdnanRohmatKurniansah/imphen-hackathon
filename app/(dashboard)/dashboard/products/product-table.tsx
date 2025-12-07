@@ -160,7 +160,7 @@ const ProductTable = ({ userId }: ProductTableProps) => {
                     <TableCell>{new Date(p.created_at).toLocaleDateString()}</TableCell>
                     <TableCell>
                       <div className="flex gap-2">
-                        <Link href={`/dashboard/products/edit/{p.id}`}>
+                        <Link href={`/dashboard/products/edit/${p.id}`}>
                           <Button size="sm">Edit</Button>
                         </Link>
                         <Button size="sm" variant="destructive"
